@@ -1,0 +1,824 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+    background: #000000;
+    color: #e5e7eb;
+    line-height: 1.6;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+  }
+
+  /* Ensure descenders are fully visible */
+  p, span, div, h1, h2, h3, h4, h5, h6, li, td, th, label {
+    line-height: 1.6;
+    padding-bottom: 0.1em;
+  }
+
+  /* Extra padding for text containers to prevent clipping */
+  .glass-card p,
+  .glass-card span,
+  .glass-card div {
+    padding-bottom: 0.15em;
+  }
+
+  /* Hide scrollbar for horizontal scroll containers */
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+@layer components {
+  /* Glassmorphism Card Styles - Transparent with Cyan Neon Border */
+  .glass-card {
+    @apply bg-white/5 backdrop-blur-lg border border-cyan-500/50 rounded-2xl shadow-lg shadow-cyan-500/20;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(34, 211, 238, 0.5);
+    box-shadow: 0 8px 32px 0 rgba(34, 211, 238, 0.15), 0 0 0 1px rgba(34, 211, 238, 0.3);
+  }
+
+  /* Enhanced Glassmorphism for Sign-In Container (Login Page Only) */
+  .glass-signin {
+    /* Fallback for browsers without backdrop-filter */
+    background: rgba(0, 0, 0, 0.6) !important;
+    /* Glassmorphism with backdrop-filter */
+    background: rgba(255, 255, 255, 0.04) !important;
+    backdrop-filter: blur(12px) saturate(180%) !important;
+    -webkit-backdrop-filter: blur(12px) saturate(180%) !important;
+    border: 1px solid rgba(255, 255, 255, 0.12) !important;
+    border-radius: 24px !important;
+    box-shadow: 
+      0 8px 32px 0 rgba(34, 211, 238, 0.15),
+      0 0 0 1px rgba(255, 255, 255, 0.08),
+      inset 0 1px 0 rgba(255, 255, 255, 0.08) !important;
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* Subtle inner glow for glassmorphism effect */
+  .glass-signin::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, 
+      transparent, 
+      rgba(255, 255, 255, 0.15), 
+      transparent
+    );
+    pointer-events: none;
+  }
+
+  /* Ensure text remains readable in glassmorphism container */
+  .glass-signin,
+  .glass-signin * {
+    color: inherit;
+  }
+
+  .glass-signin h1,
+  .glass-signin h2,
+  .glass-signin h3,
+  .glass-signin h4,
+  .glass-signin h5,
+  .glass-signin h6 {
+    color: #cbd5e1 !important; /* High contrast for headings */
+  }
+
+  .glass-signin p,
+  .glass-signin span,
+  .glass-signin label,
+  .glass-signin div:not([class*="bg-"]):not([class*="gradient"]) {
+    color: #e2e8f0 !important; /* High contrast for text */
+  }
+
+  /* Glassmorphism Input Fields (Login Page Only) */
+  .glass-input {
+    /* Fallback for browsers without backdrop-filter */
+    background: rgba(0, 0, 0, 0.5) !important;
+    /* Glassmorphism with backdrop-filter */
+    background: rgba(255, 255, 255, 0.04) !important;
+    backdrop-filter: blur(10px) saturate(150%) !important;
+    -webkit-backdrop-filter: blur(10px) saturate(150%) !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    border-radius: 12px !important;
+    color: #ffffff !important;
+    -webkit-text-fill-color: #ffffff !important;
+    transition: all 0.3s ease !important;
+    outline: none !important;
+  }
+
+  .glass-input::placeholder {
+    color: #94a3b8 !important;
+    opacity: 0.8 !important;
+  }
+
+  /* Cyan neon border/glow on focus and hover */
+  .glass-input:hover {
+    border: 1px solid rgba(0, 255, 220, 0.25) !important;
+    box-shadow: 0 0 8px rgba(0, 255, 220, 0.12), 0 0 2px rgba(0, 255, 220, 0.2) !important;
+  }
+
+  .glass-input:focus {
+    border: 1px solid rgba(0, 255, 220, 0.35) !important;
+    box-shadow: 
+      0 0 12px rgba(0, 255, 220, 0.18),
+      0 0 4px rgba(0, 255, 220, 0.28),
+      inset 0 0 8px rgba(0, 255, 220, 0.05) !important;
+    outline: 2px solid rgba(0, 255, 220, 0.2) !important;
+    outline-offset: 2px !important;
+  }
+
+  /* Ensure text is visible and not clipped */
+  .glass-input {
+    line-height: 1.6 !important;
+    padding-top: 1rem !important;
+    padding-bottom: 1rem !important;
+  }
+
+  /* Glassmorphism Buttons (Login Page Only) */
+  .glass-btn-primary {
+    /* Fallback for browsers without backdrop-filter */
+    background: rgba(6, 182, 212, 0.8) !important;
+    /* Glassmorphism with backdrop-filter */
+    background: rgba(6, 182, 212, 0.15) !important;
+    backdrop-filter: blur(10px) saturate(150%) !important;
+    -webkit-backdrop-filter: blur(10px) saturate(150%) !important;
+    border: 1px solid rgba(6, 182, 212, 0.3) !important;
+    border-radius: 12px !important;
+    color: #ffffff !important;
+    font-weight: 600 !important;
+    transition: all 0.3s ease !important;
+    outline: none !important;
+    box-shadow: 0 4px 16px rgba(6, 182, 212, 0.2) !important;
+  }
+
+  .glass-btn-primary:hover:not(:disabled) {
+    background: rgba(6, 182, 212, 0.25) !important;
+    border: 1px solid rgba(0, 255, 220, 0.4) !important;
+    box-shadow: 
+      0 0 12px rgba(0, 255, 220, 0.18),
+      0 0 4px rgba(0, 255, 220, 0.28),
+      0 6px 20px rgba(6, 182, 212, 0.3) !important;
+    transform: translateY(-1px) !important;
+  }
+
+  .glass-btn-primary:focus {
+    border: 1px solid rgba(0, 255, 220, 0.5) !important;
+    box-shadow: 
+      0 0 12px rgba(0, 255, 220, 0.18),
+      0 0 4px rgba(0, 255, 220, 0.28),
+      0 6px 20px rgba(6, 182, 212, 0.3) !important;
+    outline: 2px solid rgba(0, 255, 220, 0.3) !important;
+    outline-offset: 2px !important;
+  }
+
+  .glass-btn-primary:active:not(:disabled) {
+    transform: translateY(0) !important;
+  }
+
+  .glass-btn-secondary {
+    /* Fallback for browsers without backdrop-filter */
+    background: rgba(255, 255, 255, 0.05) !important;
+    /* Glassmorphism with backdrop-filter */
+    background: rgba(255, 255, 255, 0.04) !important;
+    backdrop-filter: blur(10px) saturate(150%) !important;
+    -webkit-backdrop-filter: blur(10px) saturate(150%) !important;
+    border: 1px solid rgba(6, 182, 212, 0.4) !important;
+    border-radius: 12px !important;
+    color: #06b6d4 !important;
+    font-weight: 600 !important;
+    transition: all 0.3s ease !important;
+    outline: none !important;
+  }
+
+  .glass-btn-secondary:hover {
+    background: rgba(6, 182, 212, 0.1) !important;
+    border: 1px solid rgba(0, 255, 220, 0.5) !important;
+    box-shadow: 
+      0 0 12px rgba(0, 255, 220, 0.18),
+      0 0 4px rgba(0, 255, 220, 0.28) !important;
+    transform: translateY(-1px) !important;
+  }
+
+  .glass-btn-secondary:focus {
+    border: 1px solid rgba(0, 255, 220, 0.5) !important;
+    box-shadow: 
+      0 0 12px rgba(0, 255, 220, 0.18),
+      0 0 4px rgba(0, 255, 220, 0.28) !important;
+    outline: 2px solid rgba(0, 255, 220, 0.3) !important;
+    outline-offset: 2px !important;
+  }
+
+  .glass-btn-secondary:active {
+    transform: translateY(0) !important;
+  }
+
+  /* Ensure high contrast text in glass cards (dark backgrounds) */
+  .glass-card {
+    color: #e2e8f0 !important; /* High contrast slate-200 */
+  }
+
+  .glass-card h1,
+  .glass-card h2,
+  .glass-card h3,
+  .glass-card h4,
+  .glass-card h5,
+  .glass-card h6 {
+    color: #cbd5e1 !important; /* High contrast slate-300 for headings */
+  }
+
+  .glass-card p,
+  .glass-card span:not([class*="bg-"]):not([class*="gradient"]),
+  .glass-card div:not([class*="bg-"]):not([class*="gradient"]):not([class*="text-"]) {
+    color: #e2e8f0 !important; /* High contrast slate-200 */
+  }
+
+  /* Ensure text in dark gradient backgrounds is high contrast white */
+  [class*="bg-gradient-to-r"][class*="from-blue-500"],
+  [class*="bg-gradient-to-r"][class*="from-purple-500"],
+  [class*="bg-gradient-to-r"][class*="from-red-500"],
+  [class*="bg-gradient-to-r"][class*="from-green-500"],
+  [class*="bg-gradient-to-r"][class*="from-cyan-500"],
+  [class*="bg-gradient-to-br"][class*="from-blue-500"],
+  [class*="bg-gradient-to-br"][class*="from-purple-500"],
+  [class*="bg-gradient-to-b"][class*="from-blue-500"] {
+    color: #ffffff !important;
+  }
+
+  [class*="bg-gradient-to-r"][class*="from-blue-500"] *,
+  [class*="bg-gradient-to-r"][class*="from-purple-500"] *,
+  [class*="bg-gradient-to-r"][class*="from-red-500"] *,
+  [class*="bg-gradient-to-r"][class*="from-green-500"] *,
+  [class*="bg-gradient-to-r"][class*="from-cyan-500"] *,
+  [class*="bg-gradient-to-br"][class*="from-blue-500"] *,
+  [class*="bg-gradient-to-br"][class*="from-purple-500"] *,
+  [class*="bg-gradient-to-b"][class*="from-blue-500"] * {
+    color: #ffffff !important;
+  }
+
+  /* Light gradient backgrounds keep dark text (already have explicit text colors) */
+  [class*="bg-gradient"][class*="from-red-100"],
+  [class*="bg-gradient"][class*="from-yellow-100"],
+  [class*="bg-gradient"][class*="from-green-100"],
+  [class*="bg-gradient"][class*="from-blue-100"],
+  [class*="bg-gradient"][class*="from-purple-100"],
+  [class*="bg-gradient"][class*="from-gray-100"],
+  [class*="bg-gradient"][class*="from-slate-100"],
+  [class*="bg-gradient"][class*="from-orange-100"],
+  [class*="bg-gradient"][class*="from-pink-100"] {
+    /* Keep existing dark text colors - don't override */
+  }
+
+  /* Remove text opacity that reduces contrast on dark backgrounds */
+  .glass-card [class*="text-white/"],
+  .glass-card [class*="text-slate/"],
+  .glass-card [class*="text-cyan/"],
+  [class*="bg-gradient-to-r"][class*="from-blue-500"] [class*="text-white/"],
+  [class*="bg-gradient-to-r"][class*="from-purple-500"] [class*="text-white/"] {
+    opacity: 1 !important;
+  }
+
+  .glass-card-hover {
+    @apply transition-all duration-300 ease-out;
+  }
+
+  .glass-card-hover:hover {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(34, 211, 238, 0.8);
+    box-shadow: 0 8px 32px 0 rgba(34, 211, 238, 0.4), 
+                0 0 20px rgba(34, 211, 238, 0.3),
+                0 0 40px rgba(34, 211, 238, 0.2),
+                inset 0 0 20px rgba(34, 211, 238, 0.1);
+    transform: translateY(-2px) scale(1.01);
+  }
+
+  /* Button Styles - Perfect Centering with Flexbox */
+  .btn-primary {
+    @apply bg-cyan-500 hover:bg-cyan-400 text-black font-semibold rounded-full px-4 py-2 shadow-lg shadow-cyan-500/40 transition-all duration-200;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    line-height: 1.5 !important;
+    text-align: center !important;
+    flex-direction: row !important;
+    gap: 0.5rem !important;
+  }
+
+  .btn-secondary {
+    @apply border border-cyan-500/60 text-cyan-300 hover:bg-cyan-500/10 rounded-full px-4 py-2 transition-all duration-200;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    line-height: 1.5 !important;
+    text-align: center !important;
+    flex-direction: row !important;
+    gap: 0.5rem !important;
+  }
+
+  /* Ensure all buttons have proper centering - OVERRIDE ALL STYLES */
+  button:not([class*="sr-only"]):not([type="file"]):not([type="checkbox"]):not([type="radio"]),
+  a[class*="btn"],
+  .btn-primary,
+  .btn-secondary,
+  button.btn-primary,
+  button.btn-secondary,
+  a.btn-primary,
+  a.btn-secondary,
+  button[class*="bg-red"],
+  button[class*="bg-blue"],
+  button[class*="bg-green"],
+  button[class*="bg-purple"],
+  button[class*="bg-cyan"],
+  button[class*="bg-orange"],
+  button[class*="rounded-full"],
+  button[class*="rounded-md"],
+  button[class*="rounded-lg"],
+  button[class*="rounded-xl"] {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    line-height: 1.5 !important;
+    text-align: center !important;
+    flex-direction: row !important;
+    gap: 0.5rem !important;
+    vertical-align: middle !important;
+  }
+
+  /* Ensure button text content is properly aligned */
+  button > *:not(svg):not([class*="animate-spin"]):not(div) {
+    display: inline-block;
+    vertical-align: middle;
+    line-height: 1.5;
+  }
+
+  /* Remove ALL margins from icons in buttons - use gap instead */
+  button svg,
+  .btn-primary svg,
+  .btn-secondary svg,
+  a[class*="btn"] svg,
+  button > svg,
+  .btn-primary > svg,
+  .btn-secondary > svg,
+  button svg[class*="mr-"],
+  button svg[class*="ml-"],
+  .btn-primary svg[class*="mr-"],
+  .btn-primary svg[class*="ml-"],
+  .btn-secondary svg[class*="mr-"],
+  .btn-secondary svg[class*="ml-"] {
+    flex-shrink: 0 !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+    display: block !important;
+  }
+
+  /* Remove margins from text/spans in buttons */
+  button > span,
+  .btn-primary > span,
+  .btn-secondary > span,
+  button > *:not(svg):not([class*="animate-spin"]):not(div[class*="flex"]):not(div[class*="grid"]),
+  .btn-primary > *:not(svg):not([class*="animate-spin"]):not(div[class*="flex"]):not(div[class*="grid"]),
+  .btn-secondary > *:not(svg):not([class*="animate-spin"]):not(div[class*="flex"]):not(div[class*="grid"]) {
+    margin: 0 !important;
+    padding: 0 !important;
+    line-height: inherit !important;
+  }
+
+  /* Ensure button text content is centered */
+  button,
+  button *:not(svg):not([class*="animate-spin"]):not(div) {
+    text-align: center !important;
+    vertical-align: middle !important;
+  }
+
+  /* Fix line-height for perfect vertical centering - don't override padding */
+  button:not([class*="py-"]):not([class*="p-"]) {
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+  }
+
+  /* Ensure buttons have consistent vertical alignment */
+  button {
+    box-sizing: border-box;
+  }
+
+  /* Ensure spinners in buttons are centered */
+  button [class*="animate-spin"],
+  .btn-primary [class*="animate-spin"],
+  .btn-secondary [class*="animate-spin"] {
+    flex-shrink: 0 !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+    display: block !important;
+  }
+
+  /* Global: Ensure ALL buttons have curved borders */
+  button:not([class*="rounded"]):not([class*="sr-only"]):not([type="file"]):not([type="checkbox"]):not([type="radio"]):not([type="range"]),
+  a[role="button"]:not([class*="rounded"]),
+  [role="button"]:not([class*="rounded"]),
+  a[class*="btn"]:not([class*="rounded"]),
+  button[class*="btn"]:not([class*="rounded"]) {
+    border-radius: 12px !important;
+  }
+
+  /* Global: Ensure ALL inputs, textareas, and selects have curved borders */
+  input:not([class*="rounded"]):not([type="file"]):not([type="checkbox"]):not([type="radio"]):not([type="range"]):not([type="hidden"]),
+  textarea:not([class*="rounded"]),
+  select:not([class*="rounded"]) {
+    border-radius: 12px !important;
+  }
+
+  /* Global: Ensure ALL sections, boxes, cards, and containers have curved borders */
+  div[class*="glass-card"]:not([class*="rounded"]),
+  div[class*="bg-"]:not([class*="rounded"]):not([class*="absolute"]):not([class*="fixed"]):not([class*="sticky"]):not([class*="overflow"]),
+  section:not([class*="rounded"]):not([class*="absolute"]):not([class*="fixed"]),
+  article:not([class*="rounded"]):not([class*="absolute"]):not([class*="fixed"]),
+  aside:not([class*="rounded"]):not([class*="absolute"]):not([class*="fixed"]),
+  .card:not([class*="rounded"]),
+  [class*="p-"]:not([class*="rounded"]):not([class*="absolute"]):not([class*="fixed"]):not([class*="sticky"]):not([class*="overflow"]) {
+    border-radius: 16px !important;
+  }
+
+  /* Ensure glass-card always has rounded borders */
+  .glass-card {
+    border-radius: 16px !important;
+  }
+
+  /* Ensure all error/success/info message boxes have curved borders */
+  div[class*="bg-red"]:not([class*="rounded"]):not([class*="absolute"]):not([class*="fixed"]),
+  div[class*="bg-green"]:not([class*="rounded"]):not([class*="absolute"]):not([class*="fixed"]),
+  div[class*="bg-yellow"]:not([class*="rounded"]):not([class*="absolute"]):not([class*="fixed"]),
+  div[class*="bg-blue"]:not([class*="rounded"]):not([class*="absolute"]):not([class*="fixed"]) {
+    border-radius: 12px !important;
+  }
+
+  /* Fix for inline-flex buttons - convert to flex */
+  button[class*="inline-flex"],
+  a[class*="inline-flex"][class*="btn"],
+  .btn-primary[class*="inline-flex"],
+  .btn-secondary[class*="inline-flex"] {
+    display: flex !important;
+  }
+
+  /* Override Tailwind margin utilities in buttons */
+  button [class*="mr-"],
+  button [class*="ml-"],
+  .btn-primary [class*="mr-"],
+  .btn-primary [class*="ml-"],
+  .btn-secondary [class*="mr-"],
+  .btn-secondary [class*="ml-"] {
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+  }
+
+  /* Input Styles - Enhanced for maximum visibility */
+  .input-dark {
+    @apply bg-black/40 border border-cyan-500/40 rounded-xl focus:outline-none focus:ring-2 focus:ring-cyan-500/80 focus:border-cyan-400 transition-all duration-200;
+    color: #ffffff !important;
+    -webkit-text-fill-color: #ffffff !important;
+    background-color: rgba(0, 0, 0, 0.4) !important;
+  }
+
+  .input-dark:disabled {
+    color: #ffffff !important;
+    -webkit-text-fill-color: #ffffff !important;
+    opacity: 0.5;
+    background-color: rgba(0, 0, 0, 0.2) !important;
+  }
+
+  .input-dark::placeholder {
+    color: #94a3b8 !important;
+    opacity: 0.8 !important;
+  }
+
+  /* Ensure input values are visible */
+  .input-dark[value],
+  .input-dark:not([value=""]) {
+    color: #ffffff !important;
+    -webkit-text-fill-color: #ffffff !important;
+  }
+
+  /* Textarea and Select Styles */
+  textarea.input-dark,
+  select.input-dark {
+    @apply bg-black/40 border border-cyan-500/40 rounded-xl focus:outline-none focus:ring-2 focus:ring-cyan-500/80 focus:border-cyan-400 transition-all duration-200;
+    color: #ffffff !important;
+    -webkit-text-fill-color: #ffffff !important;
+    background-color: rgba(0, 0, 0, 0.4) !important;
+  }
+
+  textarea.input-dark::placeholder {
+    color: #94a3b8 !important;
+    opacity: 0.8 !important;
+  }
+
+  select.input-dark::placeholder {
+    color: #94a3b8 !important;
+    opacity: 0.8 !important;
+  }
+
+  /* Ensure all inputs, textareas, and selects have visible text */
+  input:not(.input-dark),
+  textarea:not(.input-dark),
+  select:not(.input-dark) {
+    color: #ffffff !important;
+  }
+
+  /* Force text color for all form elements - GLOBAL OVERRIDE */
+  input,
+  textarea,
+  select {
+    color: #ffffff !important;
+    -webkit-text-fill-color: #ffffff !important;
+  }
+
+  /* Ensure text is visible when typing - override browser defaults */
+  input[type="text"],
+  input[type="email"],
+  input[type="password"],
+  input[type="number"],
+  input[type="tel"],
+  input[type="url"],
+  input[type="search"],
+  input[type="date"],
+  input[type="time"],
+  input[type="datetime-local"],
+  textarea {
+    color: #ffffff !important;
+    -webkit-text-fill-color: #ffffff !important;
+    background-color: rgba(0, 0, 0, 0.4) !important;
+  }
+
+  /* Focus state - ensure text stays visible */
+  input:focus,
+  textarea:focus,
+  select:focus {
+    color: #ffffff !important;
+    -webkit-text-fill-color: #ffffff !important;
+  }
+
+  /* Specific fix for number inputs */
+  input[type="number"] {
+    color: #ffffff !important;
+    -webkit-text-fill-color: #ffffff !important;
+    -moz-appearance: textfield;
+  }
+
+  input[type="number"]::-webkit-inner-spin-button,
+  input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  /* Ensure disabled inputs still show text */
+  input:disabled,
+  textarea:disabled {
+    color: #ffffff !important;
+    -webkit-text-fill-color: #ffffff !important;
+  }
+
+  input::placeholder,
+  textarea::placeholder {
+    color: #94a3b8 !important;
+    opacity: 0.7;
+  }
+
+  /* Ensure select options are visible */
+  select.input-dark option,
+  select option {
+    @apply bg-black text-white;
+    background-color: #000000;
+    color: #ffffff;
+  }
+
+  /* Additional rules to ensure text visibility in all states */
+  input.input-dark,
+  textarea.input-dark {
+    caret-color: #06b6d4 !important;
+  }
+
+  /* Force text color even when input has value */
+  input.input-dark[type="text"],
+  input.input-dark[type="number"],
+  input.input-dark[type="email"] {
+    color: #ffffff !important;
+    -webkit-text-fill-color: #ffffff !important;
+  }
+
+  /* Override any autofill styles */
+  input.input-dark:-webkit-autofill,
+  input.input-dark:-webkit-autofill:hover,
+  input.input-dark:-webkit-autofill:focus,
+  input:-webkit-autofill,
+  input:-webkit-autofill:hover,
+  input:-webkit-autofill:focus {
+    -webkit-text-fill-color: #ffffff !important;
+    color: #ffffff !important;
+    -webkit-box-shadow: 0 0 0px 1000px rgba(0, 0, 0, 0.4) inset !important;
+    box-shadow: 0 0 0px 1000px rgba(0, 0, 0, 0.4) inset !important;
+  }
+
+  /* Ensure all inputs without input-dark class also have visible text */
+  input:not(.input-dark),
+  textarea:not(.input-dark),
+  select:not(.input-dark) {
+    color: #ffffff !important;
+    -webkit-text-fill-color: #ffffff !important;
+    background-color: rgba(0, 0, 0, 0.4) !important;
+    border: 1px solid rgba(34, 211, 238, 0.4) !important;
+  }
+
+  /* Make sure placeholder is always visible */
+  input::placeholder,
+  textarea::placeholder {
+    color: #94a3b8 !important;
+    opacity: 0.8 !important;
+  }
+
+  /* Caret color for better visibility */
+  input,
+  textarea {
+    caret-color: #06b6d4 !important;
+  }
+
+  /* Fix line-clamp to preserve descenders */
+  .line-clamp-1,
+  .line-clamp-2,
+  .line-clamp-3,
+  .line-clamp-4,
+  .line-clamp-5,
+  .line-clamp-6 {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    line-height: 1.65 !important;
+    padding-bottom: 0.3em !important;
+    margin-bottom: 0.1em !important;
+    -webkit-line-clamp: var(--line-clamp, 3);
+    box-sizing: border-box;
+  }
+
+  .line-clamp-1 {
+    --line-clamp: 1;
+    padding-bottom: 0.35em !important;
+    line-height: 1.7 !important;
+  }
+
+  .line-clamp-2 {
+    --line-clamp: 2;
+    padding-bottom: 0.3em !important;
+    line-height: 1.65 !important;
+  }
+
+  .line-clamp-3 {
+    --line-clamp: 3;
+    padding-bottom: 0.3em !important;
+    line-height: 1.65 !important;
+  }
+
+  .line-clamp-4 {
+    --line-clamp: 4;
+    padding-bottom: 0.3em !important;
+    line-height: 1.65 !important;
+  }
+
+  .line-clamp-5 {
+    --line-clamp: 5;
+    padding-bottom: 0.3em !important;
+    line-height: 1.65 !important;
+  }
+
+  .line-clamp-6 {
+    --line-clamp: 6;
+    padding-bottom: 0.3em !important;
+    line-height: 1.65 !important;
+  }
+
+  /* Ensure text containers have adequate padding */
+  .glass-card,
+  .glass-card-hover {
+    padding: 1.5rem;
+  }
+
+  /* Prevent text clipping in glass cards */
+  .glass-card p,
+  .glass-card span:not(.inline-flex):not(.flex),
+  .glass-card div:not(.flex):not(.inline-flex) {
+    padding-bottom: 0.15em;
+    line-height: 1.6;
+  }
+
+  /* Ensure message bubbles don't clip descenders */
+  [class*="px-6"][class*="py-4"] p,
+  [class*="px-6"][class*="py-4"] div:not(.flex):not(.inline-flex) {
+    padding-bottom: 0.2em;
+    line-height: 1.6;
+  }
+
+  /* Prevent text clipping in all text elements */
+  * {
+    text-overflow: ellipsis;
+  }
+
+  /* Ensure leading-relaxed has proper line-height */
+  .leading-relaxed {
+    line-height: 1.75 !important;
+    padding-bottom: 0.2em !important;
+  }
+
+  .leading-normal {
+    line-height: 1.6 !important;
+    padding-bottom: 0.15em !important;
+  }
+
+  .leading-tight {
+    line-height: 1.5 !important;
+    padding-bottom: 0.15em !important;
+  }
+
+  .leading-loose {
+    line-height: 2 !important;
+    padding-bottom: 0.25em !important;
+  }
+
+  /* Ensure text in buttons doesn't get clipped and is centered */
+  button,
+  .btn-primary,
+  .btn-secondary,
+  a[class*="btn"] {
+    line-height: 1.5 !important;
+    padding-top: 0.5em;
+    padding-bottom: 0.5em;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+  }
+
+  /* Fix button content alignment */
+  button > *,
+  .btn-primary > *,
+  .btn-secondary > * {
+    display: inline-flex;
+    align-items: center;
+  }
+
+  /* Fix overflow-hidden containers to not clip descenders */
+  [class*="overflow-hidden"] p,
+  [class*="overflow-hidden"] span:not(.inline-flex):not(.flex),
+  [class*="overflow-hidden"] div:not(.flex):not(.inline-flex):not([class*="absolute"]) {
+    padding-bottom: 0.2em;
+    line-height: 1.6;
+  }
+
+  /* Ensure all text elements have proper spacing */
+  p, li, td, th {
+    margin-bottom: 0.5em;
+    padding-bottom: 0.15em;
+  }
+
+  /* Fix for small text */
+  .text-xs,
+  .text-sm {
+    line-height: 1.6 !important;
+    padding-bottom: 0.15em !important;
+  }
+
+  /* Fix for medium text */
+  .text-base,
+  .text-lg {
+    line-height: 1.65 !important;
+    padding-bottom: 0.2em !important;
+  }
+
+  /* Fix for large text */
+  .text-xl,
+  .text-2xl,
+  .text-3xl,
+  .text-4xl,
+  .text-5xl,
+  .text-6xl {
+    line-height: 1.5 !important;
+    padding-bottom: 0.2em !important;
+  }
+}
