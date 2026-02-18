@@ -1,8 +1,7 @@
 """
-Backward compatibility: re-export ML service (career KNN, job matching).
-Prefer: from app.services.ml import recommend_careers_knn, match_jobs_from_database
+ML service: career KNN, job matching (Doc2Vec), roadmap selection.
 """
-from app.services.ml import (
+from app.services.ml.career_ml import (
     recommend_careers_knn,
     match_jobs_from_database,
     match_jobs_doc2vec,

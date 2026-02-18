@@ -1,8 +1,7 @@
 """
-Backward compatibility: re-export LLM (Gemini) service.
-Prefer: from app.services.llm import extract_skills, chat_with_context, ...
+LLM service: Gemini — resume parsing, skill extraction, chat, skill-gap, strengths/weaknesses.
 """
-from app.services.llm import (
+from app.services.llm.gemini import (
     extract_text_from_file,
     extract_skills,
     analyze_skill_gap,

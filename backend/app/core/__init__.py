@@ -1,6 +1,5 @@
 """
-Backward compatibility: re-export from app.core.auth.
-Prefer: from app.core.auth import get_current_user, get_password_hash, ...
+Core: auth, security. No business logic.
 """
 from app.core.auth import (
     create_access_token,
